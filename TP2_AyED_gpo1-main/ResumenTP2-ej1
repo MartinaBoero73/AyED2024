@@ -1,0 +1,51 @@
+
+EJERCICIO 1: SALA DE EMERGENCIAS
+
+PACIENTE.PY:
+Provisto por la cátedra.
+Tiene una lista de 8 nombres y otra con 8 apellidos en str
+Tres niveles de riesgo: 1 (crítico), 2 (moderado) y 3 (bajo)
+	Esta asignación se hace en linea 25
+Crea la clase Paciente, con atributos privados
+	nombre, asignados aleatoriamente a partir de la lista (posiciones entre 0 y 7
+	apellido, lo mismo que el nombre
+	riesgo, lo asigna con choices, devuelve un nivel de riesgo según el 
+		peso indicado en probabilidad
+	descripción del riesgo segun el nivel de riesgo
+	lugar en la fila
+getters de los atributos privados
+__str__ para que muestre los pacientes asi:
+	"Nombre" "apellido"	-> "riesgo" - "descripción"
+Implementamos el método __lt__ 
+	compara dos pacientes según sus atributos riesgo y devuelve 
+	True si el primero es menor al segundo, False si es mayor
+	Si tienen igual riesgo, compara por lugar de llegada
+Implementamos el método __gt__ 
+	compara dos pacientes según sus atributos riesgo y devuelve 
+	True si el primero es mayor al segundo, False si es menor
+	Si tienen igual riesgo, compara por lugar de llegada
+
+MONTICULO.PY
+Extraido del libro casi en su totalidad
+Para mejorar la eficiencia del sistema anterior que usa una lista de python 
+como cola de espera 
+mejora de las eliminaciones
+	la complejidad de pop(0) = O(n) (viene de eliminar el primero y todos
+	los elementos restantes deben avanzar un lugar) se vuelve un O(log(n))
+	ya que se intercambia con el útlimo, se hace un pop() = O(1), y la infiltración
+	hacia abajo se hace en tiempo logarítmico (altura H del arbol con n nodos
+	O(H) = O(log(n))
+No hay mejora de las inserciones si siempre se hacen al final con append:
+	la complejidad de append es de O(1) ((amortizado?))
+	infiltrar arriba permite ubicar en el lugar que corresponda segun su
+	nivel de riesgo con complejidad O(log(n))
+
+
+
+Creamos la clase MonticuloBinario:
+constructor:
+	una lista de Python que va a representar al montículo
+	tamaño=0
+__iter__: devuelve un iterador sobre la lista
+método infiltrar arriba:
+	

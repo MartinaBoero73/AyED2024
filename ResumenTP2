@@ -1,0 +1,89 @@
+
+EJERCICIO 1: SALA DE EMERGENCIAS
+
+PACIENTE.PY:
+Provisto por la cátedra.
+Tiene una lista de 8 nombres y otra con 8 apellidos en str
+Tres niveles de riesgo: 1 (crítico), 2 (moderado) y 3 (bajo)
+	Esta asignación se hace en linea 25
+Crea la clase Paciente, con atributos privados
+	nombre, asignados aleatoriamente a partir de la lista (posiciones entre 0 y 7
+	apellido, lo mismo que el nombre
+	riesgo, lo asigna con choices, devuelve un nivel de riesgo según el 
+		peso indicado en probabilidad
+	descripción del riesgo segun el nivel de riesgo
+	lugar en la fila
+getters de los atributos privados
+__str__ para que muestre los pacientes asi:
+	"Nombre" "apellido"	-> "riesgo" - "descripción"
+Implementamos el método __lt__ 
+	compara dos pacientes según sus atributos riesgo y devuelve 
+	True si el primero es menor al segundo, False si es mayor
+	Si tienen igual riesgo, compara por lugar de llegada
+Implementamos el método __gt__ 
+	compara dos pacientes según sus atributos riesgo y devuelve 
+	True si el primero es mayor al segundo, False si es menor
+	Si tienen igual riesgo, compara por lugar de llegada
+
+
+MONTICULO.PY
+Extraido del libro casi en su totalidad
+Para mejorar la eficiencia del sistema anterior que usa una lista de python 
+como cola de espera 
+mejora de las eliminaciones
+	la complejidad de pop(0) = O(n) (viene de eliminar el primero y todos
+	los elementos restantes deben avanzar un lugar) se vuelve un O(log(n))
+	ya que se intercambia con el útlimo, se hace un pop() = O(1), y la infiltración
+	hacia abajo se hace en tiempo logarítmico (altura H del arbol con n nodos
+	O(H) = O(log(n))
+No hay mejora de las inserciones si siempre se hacen al final con append:
+	la complejidad de append es de O(1) ((amortizado?))
+	infiltrar arriba permite ubicar en el lugar que corresponda segun su
+	nivel de riesgo con complejidad O(log(n))
+
+Creamos la clase MonticuloBinario:
+constructor:
+	una lista de Python que va a representar al montículo con 0 como primer elem)
+	tamaño=0
+__iter__: devuelve un iterador sobre la lista
+
+método insertar (permite insertar en cualquier posicion,funciona como append o insert):
+	inserta con append el elemento k al final de la lista
+	aumenta el tamaño en 1
+	llama a infiltrar arriba pasando por i el tamaño de la lista
+		mientras i//2 > 0, 
+		esto hace referencia a los niveles que debe subir 
+		se vuelve 0 al llegar a la raiz, no ingresa al bucle
+		compara al elemento con el que se encuentra en la posicion i//2
+		es decir, con su padre. Si es menor, se cambia:
+		Almacena al padre en variable temp, asi queda guardado
+		asigna en su lugar al hijo, pone la variable temporal abajo
+
+método eliminarMin (equivale a pop(0)):
+	almacena el valor de la raiz (raiz es posicion 1, no 0)
+	coloca al principio al ultimo valor
+	reduce el tamaño en 1
+	hace un pop() del ultimo valor (orden constante) y lo devuelve
+	hace una infiltración abajo del valor que quedó en raiz (i):
+		mientras i*2 sea menor al tamaño (exista nivel siguiente):
+		buscar un hijo mínimo (si tiene más de uno, compara i*2 (izquierdo
+		con i*2 +1 (derecho), sino, devuelve el izquierdo)
+		si es mayor que su hijo, los intercambia y aumenta i
+
+método construir montículo: 
+	toma una lista, setea el tamaño y la lista interna añadiéndole el elemento
+	0 al comienzo. Recorre el arbol infiltrando abajo a sus elementos. 
+	i decrece porque arranca desde la mitad de la lista, los elementos de abajo 
+	ya quedan ordenados.
+
+
+APLICACIONES: SALAEMERGENCIAS.PY
+Se crea monticuloMin y se generan pacientes en 20 ciclos
+Los inserta en el montículo y hay una probabilidad del 50% en cada ciclo de que se
+atienda el paciente con mayor prioridad (eliminandolo del montículo)
+Luego se muestran por ciclo la cola de pacientes por atender y su riesgo
+Considerar que esa manera de mostrar los pacientes es lineal, es decir, los recorre 
+por nivel. 
+
+
+

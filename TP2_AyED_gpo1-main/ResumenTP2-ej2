@@ -1,0 +1,54 @@
+EJERCICIO2: BASE DE DATOS DE TEMPERATURAS
+
+GENERALIDADES DE ÁRBOLES AVL:
+Factor de equilbrio: diferencia entre la altura del subárbol izquierdo y el derecho
+Los nodos hoja siempre tienen un FE 0
+Los FEs se deben mantener o -1, 0 o 1, y al agregar o extraer se deben actualizar los
+FEs recursivamente hasta la raiz, o llega a poner un FE a 0
+Despeje de fórmulas para reasignar los FE sin recalcular:
+	nuevoEq(raizVieja) = viejoEq(raizVieja) + 1 - min (0, viejoEq(nuevaRaiz)) 
+La actualización de los FE llevará un max de log_2_ (n), incluyendo rotaciones en 
+tiempo constante
+
+NODO.PY
+modeliza un nodo para TAD árbol AVL
+constructor:
+	tiene como atributos públicos accesibles clave, carga útil (valor)
+	sus hijos izquierdo y derecho, su padre y FE
+__iter__: 
+	devuelve un iterador en inorden: muestra izquierdo-self-derecho
+	lo interesante es que permite ordenar de menor a mayor
+iter_preorden:
+	devuelve un iterador en preorden (self-izquierdo-derecho)
+	permite ver los elementos como están ordenados en el árbol por nivel
+funciones para verificar si tiene o es hijo izquierdo/derecho
+si tiene algún o ambos hijos, es hoja o raiz
+reemplazarDatoDeNodo
+__str__ muestra a los nodos como (clave, valor)
+__repr__ muestra nodos dentro de listas del mismo modo
+
+
+AVL.py
+implementación del libro con algunos ajustes
+CLASE AVL:
+constructor, tamaño (y len), iteradores
+método obtener:
+	si existe raiz, se busca el nodo con _obtener(clave, raiz(como nodo actual))
+		método privado recursivo:
+		si se encuentra, devuelve el nodo
+		si es menor, se llama recursivamente con el hijo izquierdo como actual
+		si es mayor, se llama pasando al hijo derecho como acutal
+	si lo encuentra, devuelve el valor de ese nodo, sino devuelve None
+No pudimos hacer funcionar al método de Jordán para obtener el nodo con clave mayor
+o igual, lo dejamos comentado.
+Tiene una eficiencia de log_2_(n)y claramente no realiza rotaciones 
+
+método agregar: 
+	se redefine la raiz (?) como lo que devuelva _agregar 
+		método privado recursivo que:	
+		si no existe raiz, crea el primer nodo del árbol con padre None
+		sino, 
+
+
+Utilizamos la fecha en formato aaaammdd como clave y la temperatura como valor
+
